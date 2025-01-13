@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Quiz Submission Form</title>
+    <script>
+        let timer;
+        let remainingTime = 300; // 5 minutes in seconds
+
+        function startTimer() {
+            const timerElement = document.getElementById('timer');
+            timer = setInterval(() => {
+                if (remainingTime <= 0) {
+                    clearInterval(timer);
+                    alert("Time is up! Submitting your quiz.");
+                    document.getElementById('quiz-form').submit();
+                } else {
+                    const minutes = Math.floor(remainingTime / 60);
+                    const seconds = remainingTime % 60;
+                    timerElement.placeholder = `Time Remaining: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    remainingTime--;
+                }
+            }, 1000);
+        }
+
+        window.onload = startTimer;
+    </script>
+</head>
+<body>
+    <h1>Online Quiz Submission Form</h1>
+    <form id="quiz-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label>Questions:</label><br>
+        <p>1. What is the capital of France?</p>
+        <input type="radio" id="paris" name="q1" value="paris" required>
+        <label for="paris">Paris</label><br>
+        <input type="radio" id="london" name="q1" value="london">
+        <label for="london">London</label><br>
+        <input type="radio" id="berlin" name="q1" value="berlin">
+        <label for="berlin">Berlin</label><br><br>
+
+        <p>2. Select the programming languages you know:</p>
+        <input type="checkbox" id="python" name="q2" value="python">
+        <label for="python">Python</label><br>
+        <input type="checkbox" id="java" name="q2" value="java">
+        <label for="java">Java</label><br>
+        <input type="checkbox" id="c++" name="q2" value="c++">
+        <label for="c++">C++</label><br><br>
+
+        <input type="text" id="timer" disabled style="border: none; font-weight: bold;"><br><br>
+
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+    </form>
+</body>
+</html>
