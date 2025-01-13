@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Booking Form</title>
+    <script>
+        function calculateCost() {
+            const travelClassPrices = {
+                economy: 100,
+                business: 200,
+                first: 300
+            };
+
+            const travelClass = document.querySelector('input[name="travel-class"]:checked').value;
+            const numTravelers = parseInt(document.getElementById('num-travelers').value) || 0;
+
+            const totalCost = (travelClassPrices[travelClass] || 0) * numTravelers;
+            document.getElementById('total-cost').innerText = `Total Cost: $${totalCost}`;
+        }
+    </script>
+</head>
+<body>
+    <h1>Travel Booking Form</h1>
+    <form>
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="contact">Contact Information:</label>
+        <input type="email" id="contact" name="contact" required><br><br>
+
+        <label for="destination">Destination:</label>
+        <select id="destination" name="destination" required>
+            <option value="">Select a destination</option>
+            <option value="paris">Paris</option>
+            <option value="tokyo">Tokyo</option>
+            <option value="new-york">New York</option>
+        </select><br><br>
+
+        <label for="travel-dates">Travel Dates:</label>
+        <input type="date" id="travel-dates" name="travel-dates" required><br><br>
+
+        <label for="num-travelers">Number of Travelers:</label>
+        <input type="number" id="num-travelers" name="num-travelers" min="1" onchange="calculateCost()" required><br><br>
+
+        <label>Travel Class:</label><br>
+        <input type="radio" id="economy" name="travel-class" value="economy" onchange="calculateCost()" required>
+        <label for="economy">Economy</label><br>
+        <input type="radio" id="business" name="travel-class" value="business" onchange="calculateCost()">
+        <label for="business">Business</label><br>
+        <input type="radio" id="first" name="travel-class" value="first" onchange="calculateCost()">
+        <label for="first">First Class</label><br><br>
+
+        <input type="checkbox" id="insurance" name="insurance">
+        <label for="insurance">Opt for Travel Insurance</label><br><br>
+
+        <p id="total-cost">Total Cost: $0</p><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

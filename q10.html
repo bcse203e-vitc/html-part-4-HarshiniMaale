@@ -1,0 +1,73 @@
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customizable Form Template</title>
+    <script>
+        let fieldCount = 0;
+
+        function addField() {
+            const fieldType = document.getElementById('field-type').value;
+            const fieldLabel = document.getElementById('field-label').value;
+
+            if (!fieldType || !fieldLabel) {
+                alert('Please select a field type and provide a label.');
+                return;
+            }
+
+            fieldCount++;
+
+            const fieldContainer = document.createElement('div');
+            fieldContainer.setAttribute('id', `field-${fieldCount}`);
+            fieldContainer.innerHTML = `
+                <label for="field-${fieldCount}-input">${fieldLabel}:</label>
+                <input type="${fieldType}" id="field-${fieldCount}-input" name="field-${fieldCount}" required aria-label="${fieldLabel}"><br><br>
+                <button type="button" onclick="removeField(${fieldCount})">Remove</button>
+            `;
+
+            document.getElementById('form-preview').appendChild(fieldContainer);
+
+            document.getElementById('field-label').value = '';
+        }
+
+        function removeField(id) {
+            const field = document.getElementById(`field-${id}`);
+            if (field) {
+                field.remove();
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('form-preview').innerHTML = '';
+            fieldCount = 0;
+        }
+    </script>
+</head>
+<body>
+    <h1>Customizable Form Template</h1>
+    <form>
+        <label for="form-name">Form Name:</label>
+        <input type="text" id="form-name" name="form-name" placeholder="Enter the form name" required><br><br>
+
+        <label for="field-type">Field Type:</label>
+        <select id="field-type" name="field-type" required>
+            <option value="">Select field type</option>
+            <option value="text">Text</option>
+            <option value="email">Email</option>
+            <option value="number">Number</option>
+            <option value="date">Date</option>
+        </select><br><br>
+
+        <label for="field-label">Field Label:</label>
+        <input type="text" id="field-label" name="field-label" placeholder="Enter field label" required><br><br>
+
+        <button type="button" onclick="addField()">Add Field</button>
+        <button type="button" onclick="resetForm()">Reset Form</button>
+    </form>
+
+    <h2>Form Preview:</h2>
+    <form id="form-preview">
+
+    </form>
+</body>
+</html>
